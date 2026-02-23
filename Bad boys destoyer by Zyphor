@@ -1,0 +1,58 @@
+local s = Instance.new("Sky")
+s.Name = "Sky"
+s.Parent = game.Lighting
+
+local skyboxID = 132646148430543
+s.SkyboxBk = "http://www.roblox.com/asset/?id="..skyboxID
+s.SkyboxDn = "http://www.roblox.com/asset/?id="..skyboxID
+s.SkyboxFt = "http://www.roblox.com/asset/?id="..skyboxID
+s.SkyboxLf = "http://www.roblox.com/asset/?id="..skyboxID
+s.SkyboxRt = "http://www.roblox.com/asset/?id="..skyboxID
+s.SkyboxUp = "http://www.roblox.com/asset/?id="..skyboxID
+
+game.Lighting.TimeOfDay = 12
+
+local function aplicarParticula(character)
+    local torso = character:FindFirstChild("Torso") or character:FindFirstChild("UpperTorso")
+    
+    if torso then
+        local pe = Instance.new("ParticleEmitter")
+        pe.Parent = torso
+        pe.Texture = "http://www.roblox.com/asset/?id=132646148430543"
+        pe.VelocitySpread = 5
+        
+        pe.Name = "EfeitoGlobal" 
+    end
+end
+
+for _, player in ipairs(game.Players:GetPlayers()) do
+    if player.Character then
+        aplicarParticula(player.Character)
+    end
+    
+    player.CharacterAdded:Connect(aplicarParticula)
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(aplicarParticula)
+end)
+
+
+
+for _, v in pairs(game.Workspace:GetChildren()) do
+    if v:IsA("Sound") then
+        v:Stop()
+        v:Destroy()
+    end
+end
+
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://131226634127208"
+sound.Volume = 10
+sound.Looped = true
+sound.Parent = workspace
+sound.Pitch = 1
+sound:Play()
+
+local hint = Instance.new("Hint", workspace)
+hint.Text = "BAD BOYZZZ BOIII HAIL ALAHH"
